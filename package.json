@@ -1,17 +1,28 @@
 {
-  "name": "lovlogserver",
-  "version": "0.0.0",
-  "private": true,
+  "name": "Base",
+  "version": "1.0.0",
+  "description": "Basic structure for Express web apps.",
+  "main": "app.js",
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node app.js",
+    "test": "node_modules/.bin/mocha tests/**"
   },
+  "keywords": [
+    "base",
+    "project",
+    "node",
+    "express",
+    "structure"
+  ],
+  "author": "Terlici Ltd.",
+  "license": "MIT",
   "dependencies": {
-    "body-parser": "~1.18.2",
-    "cookie-parser": "~1.4.3",
-    "debug": "~2.6.9",
-    "express": "~4.15.5",
-    "jade": "~1.11.0",
-    "morgan": "~1.9.0",
-    "serve-favicon": "~2.4.5"
+    "body-parser": "^1.12.3",
+    "express": "^4.12.3",
+    "jade": "^1.9.2"
+  },
+  "devDependencies": {
+    "mocha": "^2.2.4",
+    "should": "^6.0.1"
   }
 }
