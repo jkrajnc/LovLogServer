@@ -18,8 +18,13 @@
   "license": "MIT",
   "dependencies": {
     "body-parser": "^1.12.3",
-    "express": "^4.12.3",
-    "jade": "^1.9.2"
+    "bookshelf": "^0.13.3",
+    "bookshelf-cascade-delete": "^2.0.1",
+    "express": "^4.16.3",
+    "jade": "^1.9.2",
+    "knex": "^0.14.6",
+    "mysql": "^2.15.0",
+    "typeorm": "^0.2.5"
   },
   "devDependencies": {
     "mocha": "^2.2.4",
