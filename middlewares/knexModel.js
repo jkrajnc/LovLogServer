@@ -1,4 +1,4 @@
-const dbConfig = require('../dbConfig');
+const dbConfig = require('../knexfile');
 const config = dbConfig.development;
 const knex = require('knex')(config);
 const bookshelf = require('bookshelf')(knex);
@@ -6,8 +6,6 @@ const cascadeDelete = require('bookshelf-cascade-delete');
 
 bookshelf.plugin(cascadeDelete);
 
-
-//TODO DEPENDENTS
 const LovskaDruzina = bookshelf.Model.extend({
     tableName:'lovska_druzina',
     idAttribute:'id',
@@ -17,6 +15,8 @@ const LovskaDruzina = bookshelf.Model.extend({
     koordinatePodrocja:function () {
         return this.hasMany(KoordinatePodrocja)
     }
+}, {
+    dependents: ['clani', 'koordinatePodrocja']
 });
 
 const KoordinatePodrocja = bookshelf.Model.extend({
@@ -37,6 +37,8 @@ const Clan = bookshelf.Model.extend({
         return this.hasMany(Porocilo)
     }
 
+}, {
+    dependents: ['porocila']
 });
 
 const Porocilo = bookshelf.Model.extend({
@@ -49,6 +51,8 @@ const Porocilo = bookshelf.Model.extend({
         return this.hasMany(Aktivnost)
     }
 
+}, {
+    dependents: ['aktivnosti']
 });
 
 const Aktivnost = bookshelf.Model.extend({
@@ -59,4 +63,12 @@ const Aktivnost = bookshelf.Model.extend({
         return this.belongsTo(Porocilo)
     }
 });
+
+module.exports.LovskaDruzina = LovskaDruzina;
+module.exports.KoordinatePodrocja = KoordinatePodrocja;
+module.exports.Clan = Clan;
+module.exports.Porocilo = Porocilo;
+module.exports.Aktivnost = Aktivnost;
+
+
 
