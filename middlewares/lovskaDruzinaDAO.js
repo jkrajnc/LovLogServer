@@ -3,10 +3,10 @@ const db = require('./knexModel');
 LovskaDruzina = db.LovskaDruzina;
 
 async function getLovskeDruzine () {
-    return await new LovskaDruzina().fetchAll();
+    return await new LovskaDruzina().fetchAll({withRelated:['clani.porocila.aktivnosti', 'koordinatePodrocja']});
 }
 async function getLovskaDruzinaById(id){
-    return await new LovskaDruzina().where({id: id}).fetch();
+    return await new LovskaDruzina().where({id: id}).fetch({withRelated:['clani.porocila.aktivnosti', 'koordinatePodrocja']});
 }
 
 async function saveLovskaDruzina(novaLovskaDruzina){

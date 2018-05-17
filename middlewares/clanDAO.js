@@ -3,10 +3,10 @@ const db = require('./knexModel');
 Clan = db.Clan;
 
 async function getClani () {
-    return await new Clan().fetchAll();
+    return await new Clan().fetchAll({withRelated:['porocila.aktivnosti']});
 }
 async function getClanById(id){
-    return await new Clan().where({id: id}).fetch();
+    return await new Clan().where({id: id}).fetch({withRelated:['porocila.aktivnosti']});
 }
 
 async function saveClan(novClan){

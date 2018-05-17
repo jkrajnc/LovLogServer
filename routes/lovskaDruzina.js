@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const lovskaDruzinaDao = require('../middlewares/lovskaDruzinaDAO');
+const koordinatePodrocjaDAO = require('../middlewares/koordinatePodrocjaDAO');
 
 //GET ALL
 router.route('/')
@@ -80,5 +81,20 @@ router.route('/:id')
             }
         }
     });
+
+//POST koordinate področja
+router.route('/:idDruzina/koordinatePodrocja/')
+    .post(async (req, res, next) => {
+        let idDruzina = req.params.idDruzina;
+        try {
+            req.body.lovska_druzina_id = idDruzina;
+            const koordinatePodrocja = await koordinatePodrocjaDAO.saveKoordinatePodrocja(req.body);
+            res.json(koordinatePodrocja.serialize());
+        } catch (error) {
+            console.log(error.toString());
+            res.status(500).json(error);
+        }
+    });
+
 
 module.exports = router;

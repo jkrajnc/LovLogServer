@@ -7,6 +7,7 @@ const lovskaDruzinaRouter = require('./routes/lovskaDruzina');
 const clanRouter = require('./routes/clan');
 const porociloRouter = require('./routes/porocilo');
 const aktivnostRouter = require('./routes/aktivnost');
+const koordinatePodrocjaRouter = require('./routes/koordinatePodrocja');
 
 
 
@@ -34,6 +35,7 @@ app.use('/lovske_druzine', lovskaDruzinaRouter);
 app.use('/clani', clanRouter);
 app.use('/porocila', porociloRouter);
 app.use('/aktivnosti', aktivnostRouter);
+app.use('/koordinatePodrocja', koordinatePodrocjaRouter);
 
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");

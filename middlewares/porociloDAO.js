@@ -3,10 +3,10 @@ const db = require('./knexModel');
 Porocilo = db.Porocilo;
 
 async function getPorocila () {
-    return await new Porocilo().fetchAll();
+    return await new Porocilo().fetchAll({withRelated:['aktivnosti']});
 }
 async function getPorociloById(id){
-    return await new Porocilo().where({id: id}).fetch();
+    return await new Porocilo().where({id: id}).fetch({withRelated:['aktivnosti']});
 }
 
 async function savePorocilo(novPorocilo){
