@@ -29,6 +29,24 @@ router.route('/:id')
         }
     });
 
+//GetPorociloByIdClan
+//Get by id druzina
+router.route('/clani/:id')
+    .get(async (req, res, next) => {
+        const idSt = req.params.id;
+        try {
+            if (isNaN(idSt)) {
+                res.status(500).send(`Internal server error: ${idSt}`);
+            } else {
+
+                const porocila = await porociloDAO.getPorocilaByIdClan(idSt);
+                res.json(porocila.serialize());
+            }
+        } catch (error) {
+            res.status(500).json(error);
+        }
+    });
+
 //POST
 router.route('/')
     .post(async (req, res, next) => {

@@ -29,6 +29,22 @@ router.route('/:id')
         }
     });
 
+router.route('/porocila/:id')
+    .get(async (req, res, next) => {
+        const idSt = req.params.id;
+        try {
+            if (isNaN(idSt)) {
+                res.status(500).send(`Internal server error: ${idSt}`);
+            } else {
+
+                const aktivnosti = await aktivnostDAO.getAktivnostiByIdPorocilo(idSt);
+                res.json(aktivnosti.serialize());
+            }
+        } catch (error) {
+            res.status(500).json(error);
+        }
+    });
+
 //POST
 router.route('/')
     .post(async (req, res, next) => {

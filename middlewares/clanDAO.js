@@ -5,6 +5,11 @@ Clan = db.Clan;
 async function getClani () {
     return await new Clan().fetchAll({withRelated:['porocila.aktivnosti']});
 }
+
+async function getClaniByLovskaDruzinaId(id){
+    return await new Clan().where({lovska_druzina_id: id}).fetchAll({withRelated:['porocila.aktivnosti']})
+}
+
 async function getClanById(id){
     return await new Clan().where({id: id}).fetch({withRelated:['porocila.aktivnosti']});
 }
@@ -26,3 +31,5 @@ module.exports.getClanById = getClanById;
 module.exports.saveClan = saveClan;
 module.exports.updateClan = updateClan;
 module.exports.deleteClan = deleteClan;
+module.exports.getClaniByLovskaDruzinaId = getClaniByLovskaDruzinaId;
+
