@@ -8,6 +8,7 @@ const clanRouter = require('./routes/clan');
 const porociloRouter = require('./routes/porocilo');
 const aktivnostRouter = require('./routes/aktivnost');
 const koordinatePodrocjaRouter = require('./routes/koordinatePodrocja');
+const saveImage = require('./routes/saveImage');
 
 
 
@@ -36,6 +37,7 @@ app.use('/clani', clanRouter);
 app.use('/porocila', porociloRouter);
 app.use('/aktivnosti', aktivnostRouter);
 app.use('/koordinatePodrocja', koordinatePodrocjaRouter);
+app.use('/saveImage', saveImage);
 
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
