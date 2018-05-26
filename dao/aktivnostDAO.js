@@ -1,4 +1,4 @@
-const db = require('./knexModel');
+const db = require('../middlewares/knexModel');
 
 Aktivnost = db.Aktivnost;
 

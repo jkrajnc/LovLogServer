@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const aktivnostDAO = require('../middlewares/aktivnostDAO');
+const aktivnostDAO = require('../dao/aktivnostDAO');
 
 //GET ALL
 router.route('/')

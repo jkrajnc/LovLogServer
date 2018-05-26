@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const porociloDAO = require('../middlewares/porociloDAO');
+const porociloDAO = require('../dao/porociloDAO');
 
 //GET ALL
 router.route('/')

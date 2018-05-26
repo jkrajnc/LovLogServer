@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const clanDAO = require('../middlewares/clanDAO');
+const clanDAO = require('../dao/clanDAO');
+const bcrypt = require('bcrypt');
 
 //GET ALL
 router.route('/')
@@ -51,8 +52,14 @@ router.route('/lovske_druzine/:id')
 router.route('/')
     .post(async (req, res, next) => {
         try {
-            const clan = await clanDAO.saveClan(req.body);
-            res.json(clan.serialize());
+            const saltRounds = 10;
+            let barePswd = req.body.hash_geslo;
+            bcrypt.hash(barePswd, saltRounds).then(async hash=>{
+                req.body.hash_geslo = hash;
+                const clan = await clanDAO.saveClan(req.body);
+                res.json(clan.serialize());
+            });
+
         } catch (error) {
             console.log(error.toString());
             res.status(500).json(error);
