@@ -10,6 +10,7 @@ const porociloRouter = require('./routes/porocilo');
 const aktivnostRouter = require('./routes/aktivnost');
 const koordinatePodrocjaRouter = require('./routes/koordinatePodrocja');
 require('./passport/passport')(passport);
+const saveImage = require('./routes/saveImage');
 
 let express = require('express')
     , app = express()
@@ -53,6 +54,7 @@ app.use('/porocila', porociloRouter);
 app.use('/aktivnosti', aktivnostRouter);
 app.use('/koordinatePodrocja', koordinatePodrocjaRouter);
 //app.use('/auth', authRoutes)(app, passport);
+app.use('/saveImage', saveImage);
 
 app.post('/signup', passport.authenticate('local-signup'),
     function (req, res) {
