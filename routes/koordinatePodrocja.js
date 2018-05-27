@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const koordinatePodrocjaDAO = require('../middlewares/koordinatePodrocjaDAO');
-const lovskaDruzinaDAO = require ('../middlewares/lovskaDruzinaDAO');
+const koordinatePodrocjaDAO = require('../dao/koordinatePodrocjaDAO');
+const lovskaDruzinaDAO = require ('../dao/lovskaDruzinaDAO');
 
 //GET ALL
 router.route('/')

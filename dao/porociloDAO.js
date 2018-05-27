@@ -1,10 +1,15 @@
-const db = require('./knexModel');
+const db = require('../middlewares/knexModel');
 
 Porocilo = db.Porocilo;
 
 async function getPorocila () {
     return await new Porocilo().fetchAll({withRelated:['aktivnosti']});
 }
+
+async function getPorocilaByIdClan(idClan){
+    return await new Porocilo().where({clan_id: idClan}).fetchAll({withRelated:['aktivnosti']})
+}
+
 async function getPorociloById(id){
     return await new Porocilo().where({id: id}).fetch({withRelated:['aktivnosti']});
 }
@@ -26,3 +31,4 @@ module.exports.getPorociloById = getPorociloById;
 module.exports.savePorocilo = savePorocilo;
 module.exports.updatePorocilo = updatePorocilo;
 module.exports.deletePorocilo = deletePorocilo;
+module.exports.getPorocilaByIdClan = getPorocilaByIdClan;

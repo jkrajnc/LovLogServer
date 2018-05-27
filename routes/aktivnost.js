@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const aktivnostDAO = require('../middlewares/aktivnostDAO');
+const aktivnostDAO = require('../dao/aktivnostDAO');
 
 //GET ALL
 router.route('/')
@@ -22,6 +22,22 @@ router.route('/:id')
                 res.status(500).send(`Internal server error: ${idSt}`);
             } else {
                 const aktivnosti = await aktivnostDAO.getAktivnostById(idSt);
+                res.json(aktivnosti.serialize());
+            }
+        } catch (error) {
+            res.status(500).json(error);
+        }
+    });
+
+router.route('/porocila/:id')
+    .get(async (req, res, next) => {
+        const idSt = req.params.id;
+        try {
+            if (isNaN(idSt)) {
+                res.status(500).send(`Internal server error: ${idSt}`);
+            } else {
+
+                const aktivnosti = await aktivnostDAO.getAktivnostiByIdPorocilo(idSt);
                 res.json(aktivnosti.serialize());
             }
         } catch (error) {

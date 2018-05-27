@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const clanDAO = require('../middlewares/clanDAO');
+const clanDAO = require('../dao/clanDAO');
+const bcrypt = require('bcrypt');
 
 //GET ALL
 router.route('/')
@@ -29,12 +30,36 @@ router.route('/:id')
         }
     });
 
+
+//Get by id druzina
+router.route('/lovske_druzine/:id')
+    .get(async (req, res, next) => {
+        const idSt = req.params.id;
+        try {
+            if (isNaN(idSt)) {
+                res.status(500).send(`Internal server error: ${idSt}`);
+            } else {
+
+                const clani = await clanDAO.getClaniByLovskaDruzinaId(idSt);
+                res.json(clani.serialize());
+            }
+        } catch (error) {
+            res.status(500).json(error);
+        }
+    });
+
 //POST
 router.route('/')
     .post(async (req, res, next) => {
         try {
-            const clan = await clanDAO.saveClan(req.body);
-            res.json(clan.serialize());
+            const saltRounds = 10;
+            let barePswd = req.body.hash_geslo;
+            bcrypt.hash(barePswd, saltRounds).then(async hash=>{
+                req.body.hash_geslo = hash;
+                const clan = await clanDAO.saveClan(req.body);
+                res.json(clan.serialize());
+            });
+
         } catch (error) {
             console.log(error.toString());
             res.status(500).json(error);

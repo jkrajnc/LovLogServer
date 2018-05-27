@@ -1,10 +1,15 @@
-const db = require('./knexModel');
+const db = require('../middlewares/knexModel');
 
 Aktivnost = db.Aktivnost;
 
 async function getAktivnosti () {
     return await new Aktivnost().fetchAll();
 }
+
+async function getAktivnostiByIdPorocilo(idPorocilo){
+    return await new Aktivnost().where({porocilo_id: idPorocilo}).fetchAll();
+}
+
 async function getAktivnostById(id){
     return await new Aktivnost().where({id: id}).fetch();
 }
@@ -26,3 +31,4 @@ module.exports.getAktivnostById = getAktivnostById;
 module.exports.saveAktivnost = saveAktivnost;
 module.exports.updateAktivnost = updateAktivnost;
 module.exports.deleteAktivnost = deleteAktivnost;
+module.exports.getAktivnostiByIdPorocilo = getAktivnostiByIdPorocilo;
