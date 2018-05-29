@@ -42,7 +42,7 @@ app.use(require('express-session')({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(flash());
+//app.use(flash());
 
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json());
