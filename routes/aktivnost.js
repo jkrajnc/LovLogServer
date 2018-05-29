@@ -79,11 +79,14 @@ router.route('/:id')
         let idSt = req.params.id;
         if (!isNaN(idSt)) {
             try {
+
                 let aktivnost = await aktivnostDAO.getAktivnostById(idSt);
                 if (aktivnost === null) {
+                    req.body.datum_vnos = new Date(req.body.datum_vnos).toISOString().slice(0, 19).replace('T', ' ');
                     aktivnost = await aktivnostDAO.saveAktivnost(req.body);
                     res.json(aktivnost.serialize());
                 } else {
+                    req.body.datum_vnos  = new Date(req.body.datum_vnos).toISOString().slice(0, 19).replace('T', ' ');
                     aktivnost = await aktivnostDAO.updateAktivnost(idSt, req.body);
                     res.json(aktivnost.serialize());
                 }
