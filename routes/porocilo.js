@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const porociloDAO = require('../dao/porociloDAO');
+const aktivnostDAO = require('../dao/aktivnostDAO');
 
 //GET ALL
 router.route('/')
@@ -47,7 +48,10 @@ router.route('/clani/:id')
         }
     });
 
-//POST
+
+/*
+
+
 router.route('/')
     .post(async (req, res, next) => {
         try {
@@ -58,6 +62,39 @@ router.route('/')
             res.status(500).json(error);
         }
     });
+ */
+
+//POST
+router.route('/')
+    .post(async (req, res, next) => {
+        try {
+            let porociloTemp = {
+                naziv: req.body.naziv,
+                datum_vnos: new Date(req.body.datum_vnos).toISOString().slice(0, 19).replace('T', ' '),
+                clan_id: req.body.clan_id
+            };
+
+            if(req.body.aktivnosti.length > 0){
+                let porocilo = await porociloDAO.savePorocilo(porociloTemp);
+                id_porocilo = porocilo.id;
+
+                for(let newaktivnost of req.body.aktivnosti){
+                    newaktivnost.datum_vnos = new Date(req.body.datum_vnos).toISOString().slice(0, 19).replace('T', ' ');
+                    newaktivnost.porocilo_id = id_porocilo;
+                    await aktivnostDAO.saveAktivnost(newaktivnost);
+                }
+                porocilo = await porociloDAO.getPorociloById(id_porocilo);
+                res.status(200).json(porocilo.serialize());
+            } else {
+                porocilo = await porociloDao.save(porociloTemp);
+                res.status(200).json(porocilo.serialize());
+            }
+        } catch (error) {
+            console.log(error.toString());
+            res.status(500).json(error);
+        }
+    });
+
 
 //PUT
 router.route('/:id')
@@ -67,9 +104,11 @@ router.route('/:id')
             try {
                 let porocilo = await porociloDAO.getPorociloById(idSt);
                 if (porocilo === null) {
+                    req.body.datum_vnos = new Date(req.body.datum_vnos).toISOString().slice(0, 19).replace('T', ' ');
                     porocilo = await porociloDAO.savePorocilo(req.body);
                     res.json(porocilo.serialize());
                 } else {
+                    req.body.datum_vnos = new Date(req.body.datum_vnos).toISOString().slice(0, 19).replace('T', ' ');
                     porocilo = await porociloDAO.updatePorocilo(idSt, req.body);
                     res.json(porocilo.serialize());
                 }
