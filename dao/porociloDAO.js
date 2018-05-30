@@ -15,6 +15,7 @@ async function getPorociloById(id){
 }
 
 async function savePorocilo(novPorocilo){
+    console.log(novPorocilo);
     return await new Porocilo().save(novPorocilo);
 }
 
