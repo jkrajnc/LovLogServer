@@ -1,5 +1,6 @@
 const bCrypt = require('bcrypt');
 const clanDAO = require('../dao/clanDAO');
+const createDir = require('../middlewares/createFolder');
 
 module.exports = function(passport){
 
@@ -41,6 +42,7 @@ module.exports = function(passport){
                     return done(null, false);
                 }
                 if(newClan){
+                    createDir(newClan.id);
                     return done(null, newClan);
                 }
             }

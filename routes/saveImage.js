@@ -15,7 +15,9 @@ router.route('/')
     router.route('/')
     .post(async (req, res, next) => {
         try {
-            await convertImage.base64ToImg(req.body.data, "public/img", "test");
+            const user_id = req.body.clan_id
+            //shrani v datoteko z imenom user_id, sliko poimenuj glede na id in timestamp
+            await convertImage.base64ToImg(req.body.data, "public/img/"+ user_id, user_id + "_" + new Date().getTime());
             res.json("Success");
         } catch (error) {
             console.log(error.toString());
