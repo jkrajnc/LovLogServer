@@ -5,10 +5,10 @@ module.exports = {
     development:{
         client: 'mysql',
         connection: {
-            host: '127.0.0.1',
-            user: 'root',
-            password: '',
-            database: 'lov_log'
+            host: 'us-cdbr-iron-east-04.cleardb.net',
+            user: 'b6a81d3750d45b',
+            password: '267b9504',
+            database: 'heroku_c24dd51f85f709d'
         },
         migrations:{
             tableName: 'migrations'
